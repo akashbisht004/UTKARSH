@@ -4,10 +4,12 @@ import React from "react"
 import HomePage from "./pages/HomePage"
 import SignUpPage from "./pages/SignUpPage"
 import LogInPage from "./pages/LogInPage"
+import { Button } from "./components/ui/button"
 
 function App() {
 
   return(
+    
     <>
       <BrowserRouter>
         <Routes>
