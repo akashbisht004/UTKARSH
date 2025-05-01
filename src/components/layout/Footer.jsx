@@ -1,4 +1,6 @@
 import { Heart, Mail, Phone, MapPin, Clock, Facebook, Twitter, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
+
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -33,20 +35,18 @@ function Footer() {
           </div>
           
           {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-medium">Quick Links</h3>
-            <ul className="mt-4 space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-white">Home</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">About</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">Services</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">Book Appointment</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">Our Doctors</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">Blog</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-white">Privacy Policy</a></li>
-            </ul>
-          </div>
-          
-          {/* Contact Information */}
+                <div>
+                <h3 className="text-lg font-medium">Quick Links</h3>
+                <ul className="mt-4 space-y-2">
+                  <li><Link to="/" className="text-gray-400 hover:text-white">Home</Link></li>
+                  <li><Link to="/about" className="text-gray-400 hover:text-white">About</Link></li>
+                  <li><Link to="/services" className="text-gray-400 hover:text-white">Services</Link></li>
+                  <li><Link to="/appointment" className="text-gray-400 hover:text-white">Book Appointment</Link></li>
+                  <li className="text-gray-400 hover:text-white">Privacy Policy</li>
+                </ul>
+                </div>
+                
+                {/* Contact Information */}
           <div>
             <h3 className="text-lg font-medium">Contact Us</h3>
             <ul className="mt-4 space-y-4">
