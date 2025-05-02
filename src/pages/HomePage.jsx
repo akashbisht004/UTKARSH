@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
 import { useRef } from 'react';
-import { MapPin, Brain, Shield } from 'lucide-react';
+
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -26,7 +26,7 @@ const staggerContainer = {
   }
 };
 
-const HeroSection = ({ onScrollToFeatures }) => (
+const HeroSection = ({ onScrollToFeatures, navigate }) => (
   <motion.section
     initial="hidden"
     animate="visible"
@@ -72,10 +72,10 @@ const HeroSection = ({ onScrollToFeatures }) => (
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => onScrollToFeatures()}
+          onClick={() => navigate('/about')}
           className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
         >
-          Explore Features
+          Know More
         </motion.button>
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -114,45 +114,7 @@ function HomePage() {
   return (
     <Layout>
       <div className="min-h-screen bg-background">
-        <HeroSection onScrollToFeatures={scrollToFeatures} />
-
-        {/* Quick Features Section */}
-        <motion.div
-          ref={featuresRef}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-          className="py-20 px-6"
-        >
-          <motion.div
-            variants={fadeInUp}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl font-bold text-foreground mb-4">Key Features</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Discover how our platform can transform your healthcare experience
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <FeatureHighlight
-              title="AI-Powered Diagnosis"
-              description="Get instant preliminary health assessments using advanced AI algorithms"
-              icon={Brain}
-            />
-            <FeatureHighlight
-              title="Smart Hospital Locator"
-              description="Find the nearest healthcare facilities with real-time information"
-              icon={MapPin}
-            />
-            <FeatureHighlight
-              title="Secure Health Records"
-              description="Manage your medical history with enterprise-grade security"
-              icon={Shield}
-            />
-          </div>
-        </motion.div>
+        <HeroSection onScrollToFeatures={scrollToFeatures} navigate={navigate} />
 
         {/* Call to Action Section */}
         <motion.div
@@ -160,30 +122,79 @@ function HomePage() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={staggerContainer}
-          className="bg-primary/5 py-20"
+          className="relative py-32 overflow-hidden bg-gradient-to-b from-background to-primary/5"
         >
-          <div className="max-w-4xl mx-auto px-6 text-center">
-            <motion.h2
-              variants={fadeInUp}
-              className="text-3xl font-bold text-foreground mb-6"
-            >
-              Ready to Transform Your Healthcare Experience?
-            </motion.h2>
-            <motion.p
-              variants={fadeInUp}
-              className="text-xl text-muted-foreground mb-8"
-            >
-              Join thousands of users who are already benefiting from our AI-powered healthcare platform.
-            </motion.p>
-            <motion.button
-              variants={fadeInUp}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => navigate('/login')}
-              className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-medium hover:bg-primary/90 transition-colors shadow-lg hover:shadow-xl"
-            >
-              Get Started
-            </motion.button>
+          <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(0,51,102,0.1)_1px,transparent_1px)] bg-[length:40px_40px] z-0" />
+          
+          <div className="relative z-10 max-w-6xl mx-auto px-6">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <motion.div
+                variants={fadeInUp}
+                className="text-left"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+                  Start Your Health Journey Today
+                </h2>
+                <p className="text-xl text-muted-foreground mb-8">
+                  Take the first step towards better health with our AI-powered platform. 
+                  Get personalized insights and connect with healthcare professionals.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-primary" />
+                    <span className="text-lg">AI-Powered Health Analysis</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-primary" />
+                    <span className="text-lg">24/7 Virtual Consultations</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-primary" />
+                    <span className="text-lg">Personalized Health Plans</span>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                variants={fadeInUp}
+                className="relative"
+              >
+                {/* Decorative elements */}
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-xl" />
+                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-primary/5 rounded-full blur-xl" />
+                
+                <div className="relative bg-gradient-to-br from-primary/10 via-background/50 to-background/80 backdrop-blur-sm p-8 rounded-2xl border border-primary/20 shadow-xl">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(0,80,158,0.1)_1px,transparent_1px)] bg-[length:20px_20px] rounded-2xl" />
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-2xl font-semibold text-foreground mb-6">
+                      Ready to Get Started?
+                    </h3>
+                    <p className="text-muted-foreground mb-8">
+                      Join our community of health-conscious individuals and take control of your wellness journey.
+                    </p>
+                    <div className="space-y-4">
+                      <motion.button
+                        whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(0, 80, 158, 0.2)" }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => navigate('/login')}
+                        className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-all duration-300 shadow-lg"
+                      >
+                        Create Your Account
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)" }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => navigate('/about')}
+                        className="w-full bg-background/80 text-foreground border border-primary/20 px-6 py-3 rounded-lg font-medium hover:bg-background transition-all duration-300"
+                      >
+                        Learn More About Our Features
+                      </motion.button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </motion.div>
       </div>
