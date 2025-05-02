@@ -1,8 +1,11 @@
-import { useState } from "react";
+
 import { Heart, User, Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function Header() {
+
+function Header({ openLogin, openSignup }) {
+  
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -31,14 +34,17 @@ function Header() {
 
           {/* Sign in/Login Button (Desktop) */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link
-              to="/login"
+            <button 
+              onClick={openLogin}
               className="flex items-center text-blue-600 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-md font-medium"
             >
               <User className="h-5 w-5 mr-2" />
-              Sign In / Login
-            </Link>
+               Login
+            </button>
           </div>
+
+
+         
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden">
@@ -67,13 +73,13 @@ function Header() {
           </div>
           <div className="pt-4 pb-3 border-t border-gray-200">
             <div className="flex items-center px-5">
-              <Link
-                to="/login"
+              <button 
+              onClick={openLogin}
                 className="flex-1 block text-blue-600 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-md font-medium"
               >
                 <User className="inline-block h-5 w-5 mr-2" />
-                Sign In / Login
-              </Link>
+                Login
+              </button>
             </div>
           </div>
         </div>
