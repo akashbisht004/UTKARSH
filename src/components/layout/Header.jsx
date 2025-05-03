@@ -18,7 +18,7 @@ function Header({ openLogin, openSignup }) {
               <div className="flex items-center">
                 <Heart className="h-7 w-7 text-blue-600" /> {/* Slightly increased icon size */}
                 <span className="ml-3 text-xl font-bold text-gray-900">
-                  <Link to="/">Nirog Ai</Link>
+                  <Link to="/">Nirog</Link>
                 </span> {/* Adjusted font size */}
               </div>
             </div>
