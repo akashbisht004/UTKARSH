@@ -39,13 +39,19 @@ const HeroSection = ({ onScrollToFeatures, navigate }) => (
     <motion.div
       variants={fadeInUp}
       className="relative z-10 text-center max-w-4xl mx-auto"
-    >
+    > 
       <motion.h1
         variants={fadeInUp}
         className="text-4xl md:text-6xl font-bold text-foreground mb-6"
       >
-        Welcome to Nirog AI
+        Welcome to Nirog 
       </motion.h1>
+        <motion.p
+        variants={fadeInUp}
+        className="text-2xl md:text-3xl text-foreground/90 mb-8">
+          Neural Intelligence for Remote Observation of Good Health
+        </motion.p>
+    
       <motion.p
         variants={fadeInUp}
         className="text-2xl md:text-3xl text-foreground/90 mb-8"
