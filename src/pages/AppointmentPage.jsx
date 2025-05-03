@@ -190,7 +190,29 @@ function AppointmentPage() {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       });
-      setAppointments(response.data || []);
+
+      // Add random dates to appointments
+      const appointmentsWithRandomDates = response.data.map(appointment => {
+        // Generate a random date within the next 30 days
+        const today = new Date();
+        const randomDays = Math.floor(Math.random() * 30) + 1; // 1 to 30 days
+        const randomHours = Math.floor(Math.random() * 12) + 8; // 8 AM to 8 PM
+        const randomMinutes = Math.floor(Math.random() * 60); // 0 to 59 minutes
+        
+        const appointmentDate = new Date(today);
+        appointmentDate.setDate(today.getDate() + randomDays);
+        appointmentDate.setHours(randomHours, randomMinutes, 0, 0);
+
+        return {
+          ...appointment,
+          appointment: {
+            ...appointment.appointment,
+            timestamp: appointmentDate.toISOString()
+          }
+        };
+      });
+
+      setAppointments(appointmentsWithRandomDates || []);
     } catch (error) {
       console.error('Error fetching appointments:', error);
       setError('Failed to load appointments. Please try again later.');

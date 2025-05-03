@@ -1,5 +1,5 @@
 import {react} from "react"
 
-let BASE="https://pack-loans-auto-of.trycloudflare.com"
+let BASE="https://international-he-tubes-flexibility.trycloudflare.com"
 
 export default BASE

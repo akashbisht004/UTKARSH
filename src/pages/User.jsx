@@ -72,7 +72,7 @@ function UserPage() {
                     className="min-w-[120px]"
                   >
                     <h3 className="font-medium text-foreground">John Doe</h3>
-                    <p className="text-sm text-muted-foreground">Patient</p>
+                    <p className="text-sm text-muted-foreground">User</p>
                   </motion.div>
                 )}
               </AnimatePresence>
