@@ -116,8 +116,18 @@
   }
   body {
     @apply bg-background text-foreground;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   input {
     @apply border border-border bg-background;
+  }
+  .bg-background {
+    @apply transition-colors duration-300;
+  }
+  .text-foreground {
+    @apply transition-colors duration-300;
+  }
+  .border-border {
+    @apply transition-colors duration-300;
   }
 }

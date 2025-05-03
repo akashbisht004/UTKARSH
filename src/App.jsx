@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import React, { useState, useEffect } from "react"
+import { ThemeProvider } from "./lib/theme-context"
 
 import HomePage from "./pages/HomePage"
 import AboutPage from "./pages/AboutPage"
@@ -24,7 +25,7 @@ function App() {
   }, []);
 
   return(
-    <>
+    <ThemeProvider>
       <BrowserRouter>
         <Routes>
           {/* Public Routes */}
@@ -39,7 +40,7 @@ function App() {
           <Route path="/user/nearby" element={<Nearby/>}/>
         </Routes>
       </BrowserRouter>
-    </>
+    </ThemeProvider>
   )
 }
 
