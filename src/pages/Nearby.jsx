@@ -125,11 +125,21 @@ function Nearby() {
 
   const handleBookAppointment = async (hospital) => {
     try {
-      
-        
+      console.log(hospital)
+      let response = await axios.get(`${BASE}/bookAppointment/${hospital.id}`,{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      })
 
-      setShowSuccessPopup(true);
-      setTimeout(() => setShowSuccessPopup(false), 3000);
+      if(response.data===true) {
+        setShowSuccessPopup(true);
+        setTimeout(() => setShowSuccessPopup(false), 3000);
+      }
+      else{
+        console.log(response.data)
+      }
     } catch (error) {
       console.error('Error booking appointment:', error);
     }

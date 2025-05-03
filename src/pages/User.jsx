@@ -8,8 +8,7 @@ function UserPage() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const menuItems = [
-    { icon: User, label: 'Profile', path: '/user/profile' },
-    { icon: Calendar, label: 'Appointments', path: '/user/appointments' },
+    { icon: Calendar, label: 'Appointments', path: '/user/appointment' },
     { icon: MessageSquare, label: 'AI assistance', path: '/user/ai' },
     { icon: MapPin, label: 'Nearby Hospitals', path: '/user/nearby' },
   ];
