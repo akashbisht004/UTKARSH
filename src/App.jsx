@@ -10,6 +10,7 @@ import SignupPage from "./pages/SignupPage"
 import Admin from "./pages/Admin"
 import User from "./pages/User"
 import Nearby from "./pages/Nearby" 
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState(null);
@@ -33,9 +34,9 @@ function App() {
           <Route path="/appointment" element={<AppointmentPage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/signup" element={<SignupPage/>}/>
-           <Route path="/admin" element={<Admin/>}/> 
-           <Route path="/user" element={<User/>}/>
-           <Route path="/user/nearby" element={<Nearby/>}/>
+          <Route path="/admin" element={<Admin/>}/> 
+          <Route path="/user" element={<User/>}/>
+          <Route path="/user/nearby" element={<Nearby/>}/>
         </Routes>
       </BrowserRouter>
     </>
