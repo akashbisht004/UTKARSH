@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+// using context api to manage theme--> createContext, useContext, Context.Provider
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
+
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    // Check if user has a theme preference in localStorage
+    //  theme preference in localStorage
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
       return savedTheme === 'dark';

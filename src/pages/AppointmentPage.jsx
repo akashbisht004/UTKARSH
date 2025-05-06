@@ -89,9 +89,10 @@ const calendarStyles = `
   }
 `;
 
-// Appointment Card Component
+
 const AppointmentCard = ({ appointment, onDelete }) => {
   return (
+
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -279,9 +280,8 @@ function AppointmentPage() {
         }
       });
 
-      // Add random dates to appointments
+      //  random dates to appointment
       const appointmentsWithRandomDates = response.data.map(appointment => {
-        // Generate a random date within the next 30 days
         const today = new Date();
         const randomDays = Math.floor(Math.random() * 30) + 1; // 1 to 30 days
         const randomHours = Math.floor(Math.random() * 12) + 8; // 8 AM to 8 PM

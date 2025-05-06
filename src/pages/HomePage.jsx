@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/layout/Layout';
-import { useRef } from 'react';
 
 
 const fadeInUp = {
@@ -93,28 +92,11 @@ const HeroSection = ({ navigate }) => (
   </motion.section>
 );
 
-const FeatureHighlight = ({ title, description, icon: Icon }) => (
-  <motion.div
-    variants={fadeInUp}
-    className="bg-card p-6 rounded-xl border border-border/50 hover:border-primary/50 transition-colors"
-  >
-    <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-      <Icon className="w-6 h-6 text-primary" />
-    </div>
-    <h3 className="text-xl font-semibold text-foreground mb-2">{title}</h3>
-    <p className="text-muted-foreground">{description}</p>
-  </motion.div>
-);
-
 function HomePage() {
   const navigate = useNavigate();
-  const featuresRef = useRef(null);
-
-  const scrollToFeatures = () => {
-    featuresRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
+
     <Layout>
       <div className="min-h-screen bg-background">
         <HeroSection navigate={navigate} />
@@ -202,6 +184,7 @@ function HomePage() {
         </motion.div>
       </div>
     </Layout>
+    
   );
 }
 

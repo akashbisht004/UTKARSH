@@ -12,7 +12,7 @@ const LoginForm = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    role: 'user' // Default role
+    role: 'user' 
   });
   
   useEffect(()=>{
@@ -42,10 +42,18 @@ const LoginForm = () => {
     checkRole()
   },[])
 
-  
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
-  const handleSignIn = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     let response = await axios.post(`${BASE}/login`,{
       'email':formData.email,
       'password':formData.password
@@ -88,46 +96,11 @@ const LoginForm = () => {
     else{
       console.log('error inside handle sign in.')
     }
-  }
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // Simulate successful login
-      const mockResponse = {
-        success: true,
-        user: {
-          role: formData.role, // Use selected role
-        }
-      };
-
-      if (mockResponse.success) {
-        // Store authentication state
-        localStorage.setItem('isAuthenticated', 'true');
-        localStorage.setItem('userRole', mockResponse.user.role);
-
-        // Redirect based on role
-        if (mockResponse.user.role === 'admin') {
-          navigate('/admin');
-        } else {
-          navigate('/user');
-        }
-      }
-    } catch (error) {
-      console.error('Login failed:', error);
-    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-6 border-2 border-gray-300 rounded-lg">
+
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-foreground">
           Email address
@@ -157,13 +130,14 @@ const LoginForm = () => {
           className="mt-1 block w-full rounded-md border-2 border-gray-300 bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         />
       </div>
-      <button
-        onClick={()=>{handleSignIn()}}
+
+      <button         
         type="submit"
         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring"
       >
         Sign in
       </button>
+      
     </form>
   );
 };

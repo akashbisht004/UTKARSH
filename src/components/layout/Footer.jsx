@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 
 
 function Footer() {
-  const currentYear = new Date().getFullYear();
   
   return (
+    
     <footer className="bg-background border-t border-border">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto py-7 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
           {/* Company Info */}
@@ -73,7 +73,7 @@ function Footer() {
         
         <div className="mt-8 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground">
-            &copy; {currentYear} Nirogh AI. All rights reserved.
+            &copy; {new Date().getFullYear()} Nirogh AI. All rights reserved.
           </p>
         </div>
       </div>

@@ -8,6 +8,7 @@ import BASE from '@/url/baseurl';
 function UserPage() {
   const navigate = useNavigate();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
   const [userData, setUserData] = useState({
     name: '',
     appointments: 2,
@@ -30,7 +31,8 @@ function UserPage() {
           }
         )
 
-        if(response.data===null) return
+        if(response.data===null) return 
+
         const user=response.data;
         
         setUserData({
@@ -69,14 +71,9 @@ function UserPage() {
     collapsed: { marginLeft: '5rem' }
   };
 
-  const itemVariants = {
-    expanded: { opacity: 1, x: 0 },
-    collapsed: { opacity: 0, x: -20 }
-  };
-
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('userRole');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
     navigate('/login');
   };
 
@@ -120,7 +117,7 @@ function UserPage() {
                     className="min-w-[120px]"
                   >
                     <h3 className="font-medium text-foreground">{userData.name}</h3>
-                    <p className="text-sm text-muted-foreground">{userData.role}</p>
+                    <p className="text-sm text-muted-foreground">User</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -207,16 +204,14 @@ function UserPage() {
             >
               <h2 className="text-xl font-semibold text-foreground mb-2">Welcome back, {userData.name}!</h2>
               <p className="text-muted-foreground">
-                Here's an overview of your health journey. You have {userData.appointments} upcoming appointments and {userData.messages} unread messages.
+                Here's an overview of your health journey. You have {userData.appointments} upcoming appointments.
               </p>
             </motion.div>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               {[
-                { title: 'Upcoming Appointments', value: userData.appointments, color: 'text-primary' },
-                { title: 'Unread Messages', value: userData.messages, color: 'text-primary' },
-                { title: 'Health Score', value: userData.healthScore, color: 'text-primary' }
+                { title: 'Upcoming Appointments', value: userData.appointments, color: 'text-primary' },  
               ].map((stat, index) => (
                 <motion.div
                   key={index}

@@ -69,6 +69,20 @@ function Nearby() {
     
   };
 
+  const pincodeToCoordinates = async (pincode) => {
+    let response = await axios.get(`https://nominatim.openstreetmap.org/search?postalcode=${pincode}&country=India&format=json`)
+    const data = response.data
+    
+    if(data.length > 0) {
+        console.log(data)
+        return {
+            latitude: data[0].lat,
+            longitude: data[0].lon
+        }
+    }
+    return null
+  }
+
   const handleLocationSearch = async() => {
     if (searchQueryPin.length !== 6) {
       setIsValidPincode(false);
@@ -106,19 +120,7 @@ function Nearby() {
     }
   };
 
-  const pincodeToCoordinates = async (pincode) => {
-    let response = await axios.get(`https://nominatim.openstreetmap.org/search?postalcode=${pincode}&country=India&format=json`)
-    const data = response.data
-    
-    if(data.length > 0) {
-        console.log(data)
-        return {
-            latitude: data[0].lat,
-            longitude: data[0].lon
-        }
-    }
-    return null
-  }
+
 
   const handleBookAppointment = async (hospital) => {
     try {
@@ -181,6 +183,7 @@ function Nearby() {
                   isValidPincode ? 'border-primary/20' : 'border-red-500'
                 } focus:border-primary focus:outline-none text-sm`}
               />
+              
               {!isValidPincode && searchQueryPin.length > 0 && (
                 <p className="text-red-500 text-xs mt-1">
                   Please enter a valid 6-digit pincode

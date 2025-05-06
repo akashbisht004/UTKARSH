@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Stethoscope, Brain, Heart, Microscope, Pill, Activity } from 'lucide-react';
-import Header from '../components/layout/Header';
 import Layout from '../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
+
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -65,9 +65,12 @@ const services = [
   }
 ];
 
-function ServicesPage() {
+function ServicesPage(){
+
   const navigate = useNavigate(); 
+
   return (
+
     <Layout>
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
@@ -173,6 +176,7 @@ function ServicesPage() {
         </motion.section>
       </div>
     </Layout>
+    
   );
 }
 

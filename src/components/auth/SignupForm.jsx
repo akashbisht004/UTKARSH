@@ -4,12 +4,14 @@ import axios from 'axios';
 import BASE from '@/url/baseurl';
 
 const SignupForm = () => {
+
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     password: '',
-    role: '',
+    role: 'user',
     age: '',
     gender: ''
   });
@@ -25,13 +27,7 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Convert role to uppercase
-      const formDataWithUppercaseRole = {
-        ...formData,gender: formData.gender.toUpperCase(),
-        role: formData.role.toUpperCase()
-      };
-      
-      const res = await axios.post(`${BASE}/register`, formDataWithUppercaseRole);
+      const res = await axios.post(`${BASE}/register`, formData);
       if (res.status === 200) {
         navigate('/login');
       }
@@ -42,6 +38,7 @@ const SignupForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 p-6 border-2 border-gray-300 rounded-lg">
+
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-foreground">
           Full Name
@@ -56,6 +53,7 @@ const SignupForm = () => {
           required
         />
       </div>
+
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-foreground">
           Email
@@ -70,6 +68,7 @@ const SignupForm = () => {
           required
         />
       </div>
+
       <div>
         <label htmlFor="password" className="block text-sm font-medium text-foreground">
           Password
@@ -84,20 +83,7 @@ const SignupForm = () => {
           required
         />
       </div>
-      <div>
-        <label htmlFor="role" className="block text-sm font-medium text-foreground">
-          Role
-        </label>
-        <input
-          type="text"
-          id="role"
-          name="role"
-          value={formData.role}
-          onChange={handleChange}
-          className="mt-1 block w-full rounded-md border-2 border-gray-300 bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-          required    
-        />
-      </div>
+
       <div>
         <label htmlFor="age" className="block text-sm font-medium text-foreground">
           Age
@@ -112,6 +98,7 @@ const SignupForm = () => {
           required
         />
       </div>
+
       <div>
         <label htmlFor="gender" className="block text-sm font-medium text-foreground">
           Gender
@@ -134,6 +121,7 @@ const SignupForm = () => {
       >
         Sign up
       </button>
+
     </form>
   );
 };

@@ -18,12 +18,12 @@ import VisitorTracker from '../components/VisitorTracker';
 const Admin = () => {
   const navigate = useNavigate();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
   const [adminData, setAdminData] = useState({
     name: 'Admin User',
     role: 'Administrator',
     totalUsers: 150,
     activeAppointments: 25,
-    pendingRequests: 8,
     visitorData: {
       labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       datasets: [
@@ -74,8 +74,6 @@ const Admin = () => {
   const menuItems = [
     { icon: Users, label: 'Users Management', path: '/admin/users' },
     { icon: Calendar, label: 'Appointments', path: '/admin/appointments' },
-    { icon: Activity, label: 'Analytics', path: '/admin/analytics' },
-    { icon: Settings, label: 'Settings', path: '/admin/settings' }
   ];
 
   const toggleSidebar = () => {
@@ -93,8 +91,8 @@ const Admin = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('userRole');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
     navigate('/login');
   };
 
@@ -225,7 +223,7 @@ const Admin = () => {
               >
                 <h2 className="text-xl font-semibold text-foreground mb-2">Admin Dashboard</h2>
                 <p className="text-muted-foreground">
-                  Manage your healthcare platform efficiently. You have {adminData.pendingRequests} pending requests and {adminData.activeAppointments} active appointments.
+                  Manage your healthcare platform efficiently. You have  {adminData.activeAppointments} active appointments.
                 </p>
               </motion.div>
 
@@ -234,7 +232,6 @@ const Admin = () => {
                 {[
                   { title: 'Total Users', value: adminData.totalUsers, color: 'text-primary' },
                   { title: 'Active Appointments', value: adminData.activeAppointments, color: 'text-primary' },
-                  { title: 'Pending Requests', value: adminData.pendingRequests, color: 'text-primary' }
                 ].map((stat, index) => (
                   <motion.div
                     key={index}

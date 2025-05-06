@@ -26,7 +26,7 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header openLogin={openLogin} openSignup={openSignup} />
+      <Header openLogin={openLogin} />
       <main className="flex-grow">
         {children}
       </main>
