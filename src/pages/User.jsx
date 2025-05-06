@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, Calendar, MessageSquare, LogOut, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,6 +6,45 @@ import { motion, AnimatePresence } from 'framer-motion';
 function UserPage() {
   const navigate = useNavigate();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [userData, setUserData] = useState({
+    name: 'John Doe',
+    role: 'User',
+    appointments: 2,
+    messages: 3,
+    healthScore: '85%',
+    recentActivities: [
+      { icon: Calendar, title: 'Appointment with Dr. Smith', time: 'Tomorrow at 10:00 AM' },
+      { icon: MessageSquare, title: 'New message from Dr. Johnson', time: '2 hours ago' }
+    ]
+  });
+
+  //  data fetch 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        // const response = await fetch('/api/user');
+        // const data = await response.json();
+        // setUserData(data);
+        
+        // For now using mock data
+        setUserData({
+          name: 'John Doe',
+          role: 'User',
+          appointments: 2,
+          messages: 3,
+          healthScore: '85%',
+          recentActivities: [
+            { icon: Calendar, title: 'Appointment with Dr. Smith', time: 'Tomorrow at 10:00 AM' },
+            { icon: MessageSquare, title: 'New message from Dr. Johnson', time: '2 hours ago' }
+          ]
+        });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const menuItems = [
     { icon: Calendar, label: 'Appointments', path: '/user/appointment' },
@@ -30,6 +69,12 @@ function UserPage() {
   const itemVariants = {
     expanded: { opacity: 1, x: 0 },
     collapsed: { opacity: 0, x: -20 }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('userRole');
+    navigate('/login');
   };
 
   return (
@@ -71,8 +116,8 @@ function UserPage() {
                     transition={{ duration: 0.2 }}
                     className="min-w-[120px]"
                   >
-                    <h3 className="font-medium text-foreground">John Doe</h3>
-                    <p className="text-sm text-muted-foreground">User</p>
+                    <h3 className="font-medium text-foreground">{userData.name}</h3>
+                    <p className="text-sm text-muted-foreground">{userData.role}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -106,9 +151,10 @@ function UserPage() {
                 </motion.button>
               ))}
             </nav>
-
+            
+            {/* logout button */}
             <motion.button
-              onClick={() => navigate('/login')}
+              onClick={handleLogout}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className={`w-full flex items-center gap-3 p-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-colors mt-8 border border-primary/10 ${
@@ -146,7 +192,7 @@ function UserPage() {
               animate={{ opacity: 1, y: 0 }}
               className="text-3xl font-bold text-foreground mb-8"
             >
-              Dashboard
+              Welcome, {userData.name}
             </motion.h1>
             
             {/* Welcome Card */}
@@ -156,18 +202,18 @@ function UserPage() {
               whileHover={{ scale: 1.02 }}
               className="bg-card p-6 rounded-xl border-2 border-primary/20 mb-8 shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              <h2 className="text-xl font-semibold text-foreground mb-2">Welcome back!</h2>
+              <h2 className="text-xl font-semibold text-foreground mb-2">Welcome back, {userData.name}!</h2>
               <p className="text-muted-foreground">
-                Here's an overview of your health journey. You have 2 upcoming appointments and 3 unread messages.
+                Here's an overview of your health journey. You have {userData.appointments} upcoming appointments and {userData.messages} unread messages.
               </p>
             </motion.div>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               {[
-                { title: 'Upcoming Appointments', value: '2', color: 'text-primary' },
-                { title: 'Unread Messages', value: '3', color: 'text-primary' },
-                { title: 'Health Score', value: '85%', color: 'text-primary' }
+                { title: 'Upcoming Appointments', value: userData.appointments, color: 'text-primary' },
+                { title: 'Unread Messages', value: userData.messages, color: 'text-primary' },
+                { title: 'Health Score', value: userData.healthScore, color: 'text-primary' }
               ].map((stat, index) => (
                 <motion.div
                   key={index}
@@ -192,10 +238,7 @@ function UserPage() {
             >
               <h2 className="text-xl font-semibold text-foreground mb-4">Recent Activity</h2>
               <div className="space-y-4">
-                {[
-                  { icon: Calendar, title: 'Appointment with Dr. Smith', time: 'Tomorrow at 10:00 AM' },
-                  { icon: MessageSquare, title: 'New message from Dr. Johnson', time: '2 hours ago' }
-                ].map((activity, index) => (
+                {userData.recentActivities.map((activity, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, x: -20 }}

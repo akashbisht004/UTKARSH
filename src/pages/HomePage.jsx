@@ -26,7 +26,7 @@ const staggerContainer = {
   }
 };
 
-const HeroSection = ({ onScrollToFeatures, navigate }) => (
+const HeroSection = ({ navigate }) => (
   <motion.section
     initial="hidden"
     animate="visible"
@@ -44,7 +44,7 @@ const HeroSection = ({ onScrollToFeatures, navigate }) => (
         variants={fadeInUp}
         className="text-4xl md:text-6xl font-bold text-foreground mb-6"
       >
-        Welcome to Nirog 
+        Welcome to Nirogh
       </motion.h1>
         <motion.p
         variants={fadeInUp}
@@ -66,10 +66,7 @@ const HeroSection = ({ onScrollToFeatures, navigate }) => (
           Experience the future of healthcare with our AI-powered platform. Get personalized health insights, 
           connect with healthcare providers, and manage your wellness journey with cutting-edge technology.
         </p>
-        <p className="text-lg leading-relaxed">
-          Our intelligent system combines advanced AI algorithms with medical expertise to provide you with 
-          comprehensive healthcare solutions tailored to your needs.
-        </p>
+        
       </motion.div>
       <motion.div
         variants={fadeInUp}
@@ -120,9 +117,9 @@ function HomePage() {
   return (
     <Layout>
       <div className="min-h-screen bg-background">
-        <HeroSection onScrollToFeatures={scrollToFeatures} navigate={navigate} />
+        <HeroSection navigate={navigate} />
 
-        {/* Call to Action Section */}
+        {/* Action Section */}
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -169,8 +166,8 @@ function HomePage() {
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-xl" />
                 <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-primary/5 rounded-full blur-xl" />
                 
-                <div className="relative bg-gradient-to-br from-primary/10 via-background/50 to-background/80 backdrop-blur-sm p-8 rounded-2xl border border-primary/20 shadow-xl">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(0,80,158,0.1)_1px,transparent_1px)] bg-[length:20px_20px] rounded-2xl" />
+                <div className="relative bg-gradient-to-br from-primary/20 via-background/80 to-background/90 backdrop-blur-sm p-8 rounded-2xl border-2 border-primary/30 shadow-xl hover:border-primary/50 transition-all duration-300">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(0,80,158,0.15)_1px,transparent_1px)] bg-[length:20px_20px] rounded-2xl" />
                   
                   <div className="relative z-10">
                     <h3 className="text-2xl font-semibold text-foreground mb-6">
@@ -181,7 +178,7 @@ function HomePage() {
                     </p>
                     <div className="space-y-4">
                       <motion.button
-                        whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(0, 80, 158, 0.2)" }}
+                        whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(0, 80, 158, 0.3)" }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => navigate('/login')}
                         className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-all duration-300 shadow-lg"
@@ -189,10 +186,10 @@ function HomePage() {
                         Create Your Account
                       </motion.button>
                       <motion.button
-                        whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)" }}
+                        whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)" }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => navigate('/about')}
-                        className="w-full bg-background/80 text-foreground border border-primary/20 px-6 py-3 rounded-lg font-medium hover:bg-background transition-all duration-300"
+                        className="w-full bg-background/90 text-foreground border-2 border-primary/30 px-6 py-3 rounded-lg font-medium hover:bg-background hover:border-primary/50 transition-all duration-300"
                       >
                         Learn More About Our Features
                       </motion.button>

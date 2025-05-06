@@ -16,7 +16,7 @@ function Header({ openLogin, openSignup }) {
               <div className="flex items-center">
                 <Heart className="h-7 w-7 text-primary" />
                 <span className="ml-3 text-xl font-bold text-foreground">
-                  <Link to="/">Nirog</Link>
+                  <Link to="/">Nirogh </Link>
                 </span>
               </div>
             </div>

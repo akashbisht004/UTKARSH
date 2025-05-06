@@ -14,7 +14,7 @@ function Footer() {
           <div>
             <div className="flex items-center">
               <Heart className="h-8 w-8 text-primary" />
-              <span className="ml-2 text-xl font-bold text-foreground">Nirog AI</span>
+              <span className="ml-2 text-xl font-bold text-foreground">Nirogh AI</span>
             </div>
             <p className="mt-4 text-muted-foreground">
               Providing accessible and convenient healthcare solutions to improve your well-being.
@@ -73,7 +73,7 @@ function Footer() {
         
         <div className="mt-8 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground">
-            &copy; {currentYear} Nirog AI. All rights reserved.
+            &copy; {currentYear} Nirogh AI. All rights reserved.
           </p>
         </div>
       </div>

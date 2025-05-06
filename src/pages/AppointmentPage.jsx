@@ -6,6 +6,89 @@ import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 import BASE from '@/url/baseurl';
 
+// Custom Calendar Styles
+const calendarStyles = `
+  .react-calendar {
+    background: transparent;
+    border: none;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  .react-calendar__tile {
+    color: var(--foreground);
+    padding: 1em 0.5em;
+    background: transparent;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+  }
+
+  .react-calendar__tile:hover {
+    background: var(--primary) !important;
+    background-color: var(--primary) !important;
+    color: var(--primary-foreground);
+  }
+
+  .react-calendar__tile--active {
+    background: var(--primary) !important;
+    background-color: var(--primary) !important;
+    color: var(--primary-foreground);
+  }
+
+  .react-calendar__tile--now {
+    background: var(--primary/20) !important;
+    background-color: var(--primary/20) !important;
+  }
+
+  .react-calendar__month-view__days__day--weekend {
+    color: var(--muted-foreground);
+  }
+
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: var(--muted-foreground/50);
+  }
+
+  .react-calendar__navigation button {
+    color: var(--foreground);
+    min-width: 44px;
+    background: transparent;
+    font-size: 1rem;
+    margin-top: 8px;
+    border-radius: 0.5rem;
+  }
+
+  .react-calendar__navigation button:hover {
+    background: var(--primary/10) !important;
+    background-color: var(--primary/10) !important;
+  }
+
+  .react-calendar__navigation button:disabled {
+    background-color: transparent;
+    color: var(--muted-foreground);
+  }
+
+  .react-calendar__navigation__label {
+    color: var(--foreground);
+    font-weight: 500;
+  }
+
+  .react-calendar__month-view__weekdays {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+
+  .react-calendar__month-view__weekdays__weekday {
+    padding: 0.5em;
+  }
+
+  .react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+  }
+`;
+
 // Appointment Card Component
 const AppointmentCard = ({ appointment, onDelete }) => {
   return (
@@ -86,6 +169,7 @@ const AppointmentCalendar = ({ appointments, selectedDate, onDateChange }) => {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="lg:col-span-1"
     >
+      <style>{calendarStyles}</style>
       <div className="bg-gradient-to-br from-primary/5 to-background rounded-xl border border-primary/20 shadow-md p-6 h-full">
         <div className="flex items-center gap-2 mb-6">
           <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
@@ -148,9 +232,13 @@ const LoadingState = () => (
 
 // Error State Component
 const ErrorState = ({ error }) => (
-  <div className="bg-red-50 border border-red-200 text-red-600 rounded-lg p-4 mb-6 text-center">
-    {error}
-  </div>
+  <motion.div
+    initial={{ opacity: 0, y: -10 }}
+    animate={{ opacity: 1, y: 0 }}
+    className="bg-destructive/10 border border-destructive/20 text-destructive rounded-lg p-4 mb-6 text-center"
+  >
+    <p className="text-sm font-medium">{error}</p>
+  </motion.div>
 );
 
 // Page Header Component

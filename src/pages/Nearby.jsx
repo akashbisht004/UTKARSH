@@ -40,10 +40,7 @@ function Nearby() {
         console.log(latitude, longitude);
         setUserLocation({ latitude, longitude });
         setIsLocating(false);
-        // In a real app, you would use these coordinates to find nearby hospitals
-        // For now, we'll just show a success message
         
-        // get the hospitals from the api
         async function getHospitals() {
             let response = await axios.get(`${BASE}/getHospitals/${latitude}/${longitude}`,{
                 headers: {
@@ -195,6 +192,7 @@ function Nearby() {
                 </p>
               )}
             </div>
+            
             <div className="flex gap-3">
               <motion.button
                 onClick={handleLocationSearch}

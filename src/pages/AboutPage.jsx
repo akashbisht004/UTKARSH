@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { MapPin, MessageSquare, Stethoscope, Brain, Shield, Clock, ChevronDown } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
+
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
@@ -31,6 +32,7 @@ const scrollToFeatures = (ref) => {
   ref.current?.scrollIntoView({ behavior: 'smooth' });
 };
 
+{/* feature card */}  
 const FeatureCard = ({ icon: Icon, title, description, features, delay }) => (
   <motion.div
     variants={cardVariants}
@@ -79,8 +81,11 @@ const FeatureCard = ({ icon: Icon, title, description, features, delay }) => (
 );
 
 function AboutPage() {
+
   const navigate = useNavigate();
   const featuresRef = useRef(null);
+
+  {/* features */}
   const features = [
     {
       icon: MapPin,
@@ -199,7 +204,7 @@ function AboutPage() {
           </div>
         </div>
 
-        {/* Call to Action Section */}
+        {/* Action Section */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
