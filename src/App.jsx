@@ -1,5 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import React, { useState, useEffect } from "react"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from "react"
 import { ThemeProvider } from "./lib/theme-context"
 
 import HomePage from "./pages/HomePage"
@@ -11,35 +11,25 @@ import SignupPage from "./pages/SignupPage"
 import Admin from "./pages/Admin"
 import User from "./pages/User"
 import Nearby from "./pages/Nearby" 
+import VisitorTracker from './components/VisitorTracker';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userRole, setUserRole] = useState(null);
-
-  useEffect(() => {
-    // Check authentication state on mount
-    const authState = localStorage.getItem('isAuthenticated');
-    const role = localStorage.getItem('userRole');
-    setIsAuthenticated(authState === 'true');
-    setUserRole(role);
-  }, []);
-
-  return(
+  return (
     <ThemeProvider>
-      <BrowserRouter>
+      <Router>
+        <VisitorTracker />
         <Routes>
-          {/* Public Routes */}
           <Route path="/" element={<HomePage/>}/>
           <Route path="/about" element={<AboutPage/>}/>
           <Route path="/services" element={<ServicesPage/>}/>
-          <Route path="/user/appointment" element={<AppointmentPage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/signup" element={<SignupPage/>}/>
-          <Route path="/admin" element={<Admin/>}/> 
+          <Route path="/admin" element={<Admin/>}/>
           <Route path="/user" element={<User/>}/>
           <Route path="/user/nearby" element={<Nearby/>}/>
+          <Route path="/user/appointment" element={<AppointmentPage/>}/>
         </Routes>
-      </BrowserRouter>
+      </Router>
     </ThemeProvider>
   )
 }

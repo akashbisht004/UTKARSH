@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { User, Calendar, MessageSquare, LogOut, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import axios from 'axios';
+import BASE from '@/url/baseurl';
 
 function UserPage() {
   const navigate = useNavigate();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [userData, setUserData] = useState({
-    name: 'John Doe',
-    role: 'User',
+    name: '',
     appointments: 2,
-    messages: 3,
-    healthScore: '85%',
     recentActivities: [
       { icon: Calendar, title: 'Appointment with Dr. Smith', time: 'Tomorrow at 10:00 AM' },
       { icon: MessageSquare, title: 'New message from Dr. Johnson', time: '2 hours ago' }
@@ -22,17 +21,21 @@ function UserPage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // const response = await fetch('/api/user');
-        // const data = await response.json();
-        // setUserData(data);
+        const response=await axios.get(`${BASE}/get/user`,
+          {
+            headers: {
+              "Authorization": `Bearer ${localStorage.getItem('token')}`,
+              "Content-Type":'application/json'
+            }
+          }
+        )
+
+        if(response.data===null) return
+        const user=response.data;
         
-        // For now using mock data
         setUserData({
-          name: 'John Doe',
-          role: 'User',
-          appointments: 2,
-          messages: 3,
-          healthScore: '85%',
+          name:user.username ,
+          appointments: user.appointments.length,
           recentActivities: [
             { icon: Calendar, title: 'Appointment with Dr. Smith', time: 'Tomorrow at 10:00 AM' },
             { icon: MessageSquare, title: 'New message from Dr. Johnson', time: '2 hours ago' }
