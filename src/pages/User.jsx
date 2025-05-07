@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, Calendar, MessageSquare, LogOut, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
+import { User, Calendar, MessageSquare, LogOut, ChevronLeft, ChevronRight, MapPin, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
@@ -8,21 +8,20 @@ import {BASE} from '@/url/baseurl';
 function UserPage() {
   const navigate = useNavigate();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [userData, setUserData] = useState({
-    name: '',
-    appointments: 2,
-    recentActivities: [
-      { icon: Calendar, title: 'Appointment with Dr. Smith', time: 'Tomorrow at 10:00 AM' },
-      { icon: MessageSquare, title: 'New message from Dr. Johnson', time: '2 hours ago' }
-    ]
+    username: '',
+    appointments: 0,
+    recentActivities: []
   });
 
   //  data fetch 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response=await axios.get(`${BASE}/get/user`,
+        setIsLoading(true);
+        const response1=await axios.get(`${BASE}/get/user`,
           {
             headers: {
               "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -30,25 +29,35 @@ function UserPage() {
             }
           }
         )
+        const response2=await axios.get(`${BASE}/getAppointments`,{
+          headers:{
+            "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            "Content-Type":'application/json'
+          }
+        })
 
-        if(response.data===null) return 
-
-        const user=response.data;
-        
-        setUserData({
-          name:user.username ,
-          appointments: user.appointments.length,
-          recentActivities: [
-            { icon: Calendar, title: 'Appointment with Dr. Smith', time: 'Tomorrow at 10:00 AM' },
-            { icon: MessageSquare, title: 'New message from Dr. Johnson', time: '2 hours ago' }
-          ]
-        });
+        if(response1.data!==null && response2.data!==null){
+          let user=response1.data;
+          let appointments=response2.data;
+          setUserData({
+            username:user.username ,
+            appointments: (user.appointments!==null)?user.appointments.length:0,
+            recentActivities:appointments.map(appointment=>({
+              icon:Calendar,
+              title:appointment.hospital.tags.name,
+              time:appointment.appointment.timestamp
+            }))
+          })
+        }
       } catch (error) {
         console.error('Error fetching user data:', error);
+      } finally {
+        setIsLoading(false);
       }
-    };
+    }
 
     fetchUserData();
+
   }, []);
 
   const menuItems = [
@@ -116,7 +125,7 @@ function UserPage() {
                     transition={{ duration: 0.2 }}
                     className="min-w-[120px]"
                   >
-                    <h3 className="font-medium text-foreground">{userData.name}</h3>
+                    <h3 className="font-medium text-foreground">{userData.username}</h3>
                     <p className="text-sm text-muted-foreground">User</p>
                   </motion.div>
                 )}
@@ -187,73 +196,81 @@ function UserPage() {
           className="flex-1 p-8"
         >
           <div className="max-w-4xl mx-auto">
-            <motion.h1 
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-3xl font-bold text-foreground mb-8"
-            >
-              Welcome, {userData.name}
-            </motion.h1>
-            
-            {/* Welcome Card */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{ scale: 1.02 }}
-              className="bg-card p-6 rounded-xl border-2 border-primary/20 mb-8 shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <h2 className="text-xl font-semibold text-foreground mb-2">Welcome back, {userData.name}!</h2>
-              <p className="text-muted-foreground">
-                Here's an overview of your health journey. You have {userData.appointments} upcoming appointments.
-              </p>
-            </motion.div>
-
-            {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              {[
-                { title: 'Upcoming Appointments', value: userData.appointments, color: 'text-primary' },  
-              ].map((stat, index) => (
-                <motion.div
-                  key={index}
+            {isLoading ? (
+              <div className="flex flex-col items-center justify-center h-[calc(100vh-4rem)]">
+                <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                <p className="mt-4 text-muted-foreground">Loading user data...</p>
+              </div>
+            ) : (
+              <>
+                <motion.h1 
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-3xl font-bold text-foreground mb-8"
+                >
+                  Welcome, {userData.username}
+                </motion.h1>
+                
+                {/* Welcome Card */}
+                <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.02 }}
+                  className="bg-card p-6 rounded-xl border-2 border-primary/20 mb-8 shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  <p className="text-muted-foreground">
+                    Here's an overview of your health journey. You have {userData.appointments} upcoming appointments.
+                  </p>
+                </motion.div>
+
+                {/* Quick Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  {[
+                    { title: 'Upcoming Appointments', value: userData.appointments, color: 'text-primary' },  
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      whileHover={{ scale: 1.05 }}
+                      className="bg-card p-6 rounded-xl border-2 border-primary/20 shadow-lg hover:shadow-xl transition-all duration-300"
+                    >
+                      <h3 className="text-lg font-medium text-foreground mb-2">{stat.title}</h3>
+                      <p className={`text-3xl font-bold ${stat.color}`}>{stat.value}</p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Recent Activity */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
                   className="bg-card p-6 rounded-xl border-2 border-primary/20 shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  <h3 className="text-lg font-medium text-foreground mb-2">{stat.title}</h3>
-                  <p className={`text-3xl font-bold ${stat.color}`}>{stat.value}</p>
+                  <h2 className="text-xl font-semibold text-foreground mb-4">Recent Activity</h2>
+                  <div className="space-y-4">
+                    {userData.recentActivities.map((activity, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.4 + index * 0.1 }}
+                        whileHover={{ scale: 1.02 }}
+                        className="flex items-center gap-4 p-4 rounded-lg bg-primary/10 border border-primary/20"
+                      >
+                        <activity.icon className="w-5 h-5 text-primary" />
+                        <div>
+                          <p className="text-foreground">{activity.title}</p>
+                          <p className="text-sm text-muted-foreground">{activity.time}</p>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
                 </motion.div>
-              ))}
-            </div>
-
-            {/* Recent Activity */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="bg-card p-6 rounded-xl border-2 border-primary/20 shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              <h2 className="text-xl font-semibold text-foreground mb-4">Recent Activity</h2>
-              <div className="space-y-4">
-                {userData.recentActivities.map((activity, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    whileHover={{ scale: 1.02 }}
-                    className="flex items-center gap-4 p-4 rounded-lg bg-primary/10 border border-primary/20"
-                  >
-                    <activity.icon className="w-5 h-5 text-primary" />
-                    <div>
-                      <p className="text-foreground">{activity.title}</p>
-                      <p className="text-sm text-muted-foreground">{activity.time}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+              </>
+            )}
           </div>
         </motion.div>
       </div>

@@ -303,7 +303,7 @@ function AppointmentPage() {
       setAppointments(appointmentsWithRandomDates || []);
     } catch (error) {
       console.error('Error fetching appointments:', error);
-      setError('Failed to load appointments. Please try again later.');
+      setError('Failed to load appointments. You might have no appointments or there is some error. Please try again later.');
     } finally {
       setLoading(false);
     }
