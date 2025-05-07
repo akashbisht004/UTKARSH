@@ -3,7 +3,7 @@ import { User, Calendar, MessageSquare, LogOut, ChevronLeft, ChevronRight, MapPi
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
-import BASE from '@/url/baseurl';
+import {BASE} from '@/url/baseurl';
 
 function UserPage() {
   const navigate = useNavigate();

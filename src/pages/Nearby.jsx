@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, MapPin, Phone, Clock, Star, ChevronRight, Navigation, Filter, Crosshair, Calendar, Loader2 } from 'lucide-react';
 import axios from 'axios';
-import BASE from '@/url/baseurl';
+import {BASE} from '@/url/baseurl';
 
 function Nearby() {
   const [searchQueryPin, setSearchQueryPin] = useState('');
