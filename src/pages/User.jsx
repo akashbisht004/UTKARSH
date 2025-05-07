@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { User, Calendar, MessageSquare, LogOut, ChevronLeft, ChevronRight, MapPin, Loader2, Video } from 'lucide-react';
+import { User, Calendar, MessageSquare, LogOut, ChevronLeft, ChevronRight, MapPin, Loader2, Video, BarChart } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
@@ -65,6 +65,7 @@ function UserPage() {
     { icon: MessageSquare, label: 'AI assistance', path: '/user/ai' },
     { icon: MapPin, label: 'Nearby Hospitals', path: '/user/nearby' },
     { icon: Video, label: 'Virtual Consultation', path: '/user/virtual-consultation' },
+    { icon: BarChart, label: 'Report Analysis', path: '/user/report-analysis' }
   ];
 
   const toggleSidebar = () => {

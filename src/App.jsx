@@ -14,6 +14,9 @@ import Nearby from "./pages/Nearby"
 import VisitorTracker from './components/VisitorTracker';
 import AIAssistant from './pages/AIAssistant';
 import VirtualConsultation from './pages/VirtualConsultation';
+import WellnessPage from './pages/WellnessPage';
+import ReportAnalysis from './pages/ReportAnalysis';
+
 function App() {
   return (
     <ThemeProvider>
@@ -31,6 +34,8 @@ function App() {
           <Route path="/user/appointment" element={<AppointmentPage/>}/>
           <Route path="/user/ai" element={<AIAssistant/>}/>
           <Route path="/user/virtual-consultation" element={<VirtualConsultation/>}/>
+          <Route path="/wellness" element={<WellnessPage/>}/>
+          <Route path="/user/report-analysis" element={<ReportAnalysis/>}/>
         </Routes>
       </Router>
     </ThemeProvider>

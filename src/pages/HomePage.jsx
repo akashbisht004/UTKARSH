@@ -170,10 +170,10 @@ function HomePage() {
                       <motion.button
                         whileHover={{ scale: 1.02, boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)" }}
                         whileTap={{ scale: 0.98 }}
-                        onClick={() => navigate('/about')}
+                        onClick={() => navigate('/wellness')}
                         className="w-full bg-background/90 text-foreground border-2 border-primary/30 px-6 py-3 rounded-lg font-medium hover:bg-background hover:border-primary/50 transition-all duration-300"
                       >
-                        Learn More About Our Features
+                        Wellness Plans
                       </motion.button>
                     </div>
                   </div>
