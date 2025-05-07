@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
-import BASE from '@/url/baseurl';
+import {BASE}  from '@/url/baseurl';
 
 // Custom Calendar Styles
 const calendarStyles = `

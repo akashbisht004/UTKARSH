@@ -12,6 +12,7 @@ import Admin from "./pages/Admin"
 import User from "./pages/User"
 import Nearby from "./pages/Nearby" 
 import VisitorTracker from './components/VisitorTracker';
+import AIAssistant from './pages/AIAssistant';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/user" element={<User/>}/>
           <Route path="/user/nearby" element={<Nearby/>}/>
           <Route path="/user/appointment" element={<AppointmentPage/>}/>
+          <Route path="/user/ai" element={<AIAssistant/>}/>
         </Routes>
       </Router>
     </ThemeProvider>
