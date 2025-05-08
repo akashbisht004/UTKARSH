@@ -14,6 +14,8 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import { getVisitorStats } from '../utils/visitorTracking';
 import VisitorTracker from '../components/VisitorTracker';
+import axios from 'axios';
+import { BASE } from '@/url/baseurl';
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -22,8 +24,8 @@ const Admin = () => {
   const [adminData, setAdminData] = useState({
     name: 'Admin User',
     role: 'Administrator',
-    totalUsers: 150,
-    activeAppointments: 25,
+    totalUsers: 0,
+    activeAppointments: 0,
     visitorData: {
       labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       datasets: [
@@ -42,7 +44,38 @@ const Admin = () => {
   });
 
   useEffect(() => {
-    // Update visitor data every minute
+    const fetchCounts = async () => {
+      try {
+        // Fetch users count
+        const usersResponse = await axios.get(`${BASE}/admin/users/count`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        // Fetch appointments count
+        const appointmentsResponse = await axios.get(`${BASE}/admin/appointments/count`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        setAdminData(prev => ({
+          ...prev,
+          totalUsers: usersResponse.data.count || 0,
+          activeAppointments: appointmentsResponse.data.count || 0
+        }));
+      } catch (error) {
+        console.error('Error fetching counts:', error);
+      }
+    };
+
+    fetchCounts();
+  }, []);
+
+  useEffect(() => {
     const updateVisitorData = () => {
       const stats = getVisitorStats();
       setAdminData(prev => ({
@@ -61,7 +94,6 @@ const Admin = () => {
       }));
     };
 
-    // Initial update
     updateVisitorData();
 
     // Set up interval for updates

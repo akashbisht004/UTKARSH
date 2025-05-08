@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Stethoscope, Brain, Heart, Microscope, Pill, Activity } from 'lucide-react';
+import { Stethoscope, Brain, Activity, FileText, Hospital, Calendar } from 'lucide-react';
 import Layout from '../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,29 +40,30 @@ const services = [
     features: ["Health Predictions", "Personalized Insights", "Risk Assessment"]
   },
   {
-    icon: Heart,
-    title: "Health Monitoring",
-    description: "Track your vital signs and health metrics with our advanced monitoring system.",
-    features: ["Real-time Tracking", "Health Reports", "Alert System"]
-  },
-  {
-    icon: Microscope,
-    title: "Lab Services",
-    description: "Access to a network of certified laboratories for all your diagnostic needs.",
-    features: ["Home Collection", "Online Reports", "Expert Analysis"]
-  },
-  {
-    icon: Pill,
-    title: "Pharmacy Services",
-    description: "Order medicines online and get them delivered to your doorstep.",
-    features: ["Medicine Delivery", "Prescription Management", "Price Comparison"]
-  },
-  {
     icon: Activity,
     title: "Wellness Programs",
     description: "Comprehensive wellness programs designed to improve your overall health.",
     features: ["Fitness Plans", "Nutrition Guidance", "Mental Health Support"]
+  },
+  { 
+    icon: FileText,
+    title: "Report Analysis",
+    description: "Analyze your health reports with the help of expert doctors.",
+    features: ["Expert Doctors", "Customized Insights", "Health Recommendations"]
+  },
+  {
+    icon: Hospital,
+    title: "Hospital Locator",
+    description: "Find the nearest hospital with our hospital locator tool.",
+    features: ["Nearest Hospital", "Pathfinding", "Emergency Services"]
+  },
+  {
+    icon: Calendar,
+    title: "Manage Appointments",
+    description: "Manage your appointments with doctors and specialists online.",
+    features: ["Easy Scheduling", "Email confirmations", "Multiple Hospitals"]
   }
+
 ];
 
 function ServicesPage(){
@@ -108,7 +109,7 @@ function ServicesPage(){
           variants={staggerContainer}
           className="max-w-5xl mx-auto px-6 py-12"
         >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
             {services.map((service, index) => (
               <motion.div
                 key={index}

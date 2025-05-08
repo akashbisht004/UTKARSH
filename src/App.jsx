@@ -16,6 +16,8 @@ import AIAssistant from './pages/AIAssistant';
 import VirtualConsultation from './pages/VirtualConsultation';
 import WellnessPage from './pages/WellnessPage';
 import ReportAnalysis from './pages/ReportAnalysis';
+import AllUsers from './pages/AllUsers';
+import AllAppointments from './pages/AllAppointments';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/signup" element={<SignupPage/>}/>
           <Route path="/admin" element={<Admin/>}/>
+          <Route path="/admin/users" element={<AllUsers/>}/>
+          <Route path="/admin/appointments" element={<AllAppointments/>}/>
           <Route path="/user" element={<User/>}/>
           <Route path="/user/nearby" element={<Nearby/>}/>
           <Route path="/user/appointment" element={<AppointmentPage/>}/>

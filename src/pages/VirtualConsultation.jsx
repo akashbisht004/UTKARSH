@@ -15,19 +15,12 @@ const specializations = [
   'ENT'
 ];
 
-// Sample doctor data (in a real app, this would come from an API)
 const generateDoctors = (specialization) => {
   const names = [
     'Dr. Rajesh Kumar',
     'Dr. Priya Sharma',
     'Dr. Amit Patel',
-    'Dr. Neha Gupta',
-    'Dr. Vikram Singh',
-    'Dr. Ananya Reddy',
-    'Dr. Arjun Mehta',
-    'Dr. Divya Iyer',
-    'Dr. Rahul Verma',
-    'Dr. Sneha Joshi'
+    'Dr. Neha Gupta'
   ];
   
   return names.map(name => ({
@@ -37,13 +30,14 @@ const generateDoctors = (specialization) => {
     rating: (4 + Math.random()).toFixed(1),
     experience: Math.floor(Math.random() * 20) + 5,
     availability: ['Mon', 'Wed', 'Fri'],
-    zoomLink: `https://zoom.us/j/${Math.random().toString(36).substr(2, 9)}`,
-    languages: ['English', 'Hindi', 'Tamil', 'Telugu', 'Bengali'].slice(0, Math.floor(Math.random() * 3) + 1),
-    consultationFee: Math.floor(Math.random() * 50) + 50
+    zoomLink: `https://zoom.us/j/${Math.floor(1000000000 + Math.random() * 9000000000)}`,
+    consultationFee: 1000
   }));
 };
 
 function VirtualConsultation() {
+
+  
   const [selectedSpecialization, setSelectedSpecialization] = useState(specializations[0]);
   const [doctors] = useState(() => 
     specializations.reduce((acc, spec) => ({
@@ -56,11 +50,9 @@ function VirtualConsultation() {
   const handleBookConsultation = async (doctor) => {
     setLoadingDoctorId(doctor.id);
     try {
-      // Generate a new Zoom link
-      const zoomLink = `https://zoom.us/j/${Math.random().toString(36).substr(2, 9)}`;
+      const zoomLink = `https://zoom.us/j/${Math.floor(1000000000 + Math.random() * 9000000000)}`;
       let formData = new FormData();
       
-      // Create consultation record
       console.log(formData);
       const response = await axios.post(`${BASE}/create-consultation`, {
         doctorName: doctor.name,
@@ -72,7 +64,6 @@ function VirtualConsultation() {
         }
       });
 
-      // Open Zoom link in new tab
       window.open(zoomLink, '_blank');
     } catch (error) {
       console.error('Error creating consultation:', error);
@@ -150,21 +141,11 @@ function VirtualConsultation() {
                   <Clock className="w-4 h-4" />
                   <span>30 min consultation</span>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {doctor.languages.map((lang) => (
-                    <span
-                      key={lang}
-                      className="px-2 py-1 bg-primary/10 rounded-full text-xs text-primary"
-                    >
-                      {lang}
-                    </span>
-                  ))}
-                </div>
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="text-lg font-semibold text-primary">
-                  ₹{doctor.consultationFee * 75}
+                  ₹1000
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
