@@ -47,7 +47,7 @@ const Admin = () => {
     const fetchCounts = async () => {
       try {
         // Fetch users count
-        const usersResponse = await axios.get(`${BASE}/admin/users/count`, {
+        const usersResponse = await axios.get(`${BASE}/getAllUsers`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ const Admin = () => {
         });
 
         // Fetch appointments count
-        const appointmentsResponse = await axios.get(`${BASE}/admin/appointments/count`, {
+        const appointmentsResponse = await axios.get(`${BASE}/getAllAppointments`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/json'
@@ -64,8 +64,8 @@ const Admin = () => {
 
         setAdminData(prev => ({
           ...prev,
-          totalUsers: usersResponse.data.count || 0,
-          activeAppointments: appointmentsResponse.data.count || 0
+          totalUsers: usersResponse.data.length || 0,
+          activeAppointments: appointmentsResponse.data.length || 0
         }));
       } catch (error) {
         console.error('Error fetching counts:', error);

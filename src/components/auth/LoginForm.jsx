@@ -31,6 +31,9 @@ const LoginForm = () => {
         else if(res.data==='ADMIN'){
           navigate('/admin')
         }
+        else if(res.data==='DOCTOR'){
+          navigate('/doctor')
+        }
         else{
           console.log('error')
         }

@@ -18,7 +18,7 @@ import WellnessPage from './pages/WellnessPage';
 import ReportAnalysis from './pages/ReportAnalysis';
 import AllUsers from './pages/AllUsers';
 import AllAppointments from './pages/AllAppointments';
-
+import Doctor from './pages/Doctor';
 function App() {
   return (
     <ThemeProvider>
@@ -40,6 +40,7 @@ function App() {
           <Route path="/user/virtual-consultation" element={<VirtualConsultation/>}/>
           <Route path="/wellness" element={<WellnessPage/>}/>
           <Route path="/user/report-analysis" element={<ReportAnalysis/>}/>
+          <Route path="/doctor" element={<Doctor/>}/>
         </Routes>
       </Router>
     </ThemeProvider>

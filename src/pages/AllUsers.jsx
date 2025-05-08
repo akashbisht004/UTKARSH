@@ -17,7 +17,7 @@ const AllUsers = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${BASE}/admin/users`, {
+      const response = await axios.get(`${BASE}/getAllUsers`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const AllUsers = () => {
 
     try {
       setDeletingUserId(userId);
-      await axios.delete(`${BASE}/admin/users/${userId}`, {
+      await axios.delete(`${BASE}/deleteUser/${userId}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'

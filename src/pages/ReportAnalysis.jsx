@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Upload, FileText, AlertCircle, CheckCircle2, Loader2, Edit2, X } from 'lucide-react';
+import { Upload, FileText, AlertCircle, CheckCircle2, Loader2, Edit2, X, Calendar } from 'lucide-react';
 import axios from 'axios';
 import { BASE } from '@/url/baseurl';   
 
+
+
+const fadeInUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
 const ReportAnalysis = () => {
     
   const [selectedFile, setSelectedFile] = useState(null);
@@ -13,8 +19,6 @@ const ReportAnalysis = () => {
   const [success, setSuccess] = useState('');
   const [reports, setReports] = useState([]);
   const [loadingReports, setLoadingReports] = useState(true);
-  const [editingReport, setEditingReport] = useState(null);
-  const [newReview, setNewReview] = useState('');
 
   useEffect(() => {
     fetchUserReports();
@@ -133,72 +137,7 @@ const ReportAnalysis = () => {
     }
   };
 
-  const handleUpdateReport = async (reportId) => {
-    if (!selectedFile) {
-      setError('Please select a new file to update');
-      return;
-    }
 
-    try {
-      setLoading(true);
-      const base64 = await convertToBase64(selectedFile);
-      const token = localStorage.getItem('token');
-      
-      if (!token) {
-        setError('Please login to update reports');
-        return;
-      }
-
-      const response = await axios.post(`${BASE}/makeChanges`, {
-        id: reportId,
-        email: localStorage.getItem('email'),
-        image: base64,
-        reviews: editingReport.reviews || []
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if (response.data === true) {
-        setSuccess('Report updated successfully!');
-        setSelectedFile(null);
-        setEditingReport(null);
-        setNewReview('');
-        fetchUserReports();
-      } else {
-        throw new Error('Failed to update report');
-      }
-    } catch (err) {
-      console.error('Error updating report:', err);
-      setError('Error updating report. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleAddReview = () => {
-    if (!newReview.trim()) return;
-    
-    setEditingReport(prev => ({
-      ...prev,
-      reviews: [...(prev.reviews || []), newReview.trim()]
-    }));
-    setNewReview('');
-  };
-
-  const handleRemoveReview = (index) => {
-    setEditingReport(prev => ({
-      ...prev,
-      reviews: prev.reviews.filter((_, i) => i !== index)
-    }));
-  };
-
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
 
   return (
     <div className="min-h-screen bg-background pt-10">
@@ -324,135 +263,32 @@ const ReportAnalysis = () => {
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-muted-foreground">
-                      {new Date(report.id).toLocaleDateString()}
+                      <Calendar className="h-4 w-4 text-primary" />
                     </span>
                     <div className="flex items-center space-x-2">
                       <span className="text-sm text-muted-foreground">
                         {report.email}
                       </span>
-                      {!editingReport && (
-                        <button
-                          onClick={() => setEditingReport(report)}
-                          className="p-1 hover:bg-primary/10 rounded-full transition-colors"
-                        >
-                          <Edit2 className="h-4 w-4 text-primary" />
-                        </button>
-                      )}
                     </div>
                   </div>
 
-                  {editingReport && editingReport.id === report.id ? (
-                    <div className="mt-4 space-y-4">
-                      <div className="flex items-center justify-between">
-                        <h4 className="text-sm font-medium text-foreground">Update Report</h4>
-                        <button
-                          onClick={() => {
-                            setEditingReport(null);
-                            setSelectedFile(null);
-                            setNewReview('');
-                          }}
-                          className="p-1 hover:bg-destructive/10 rounded-full transition-colors"
-                        >
-                          <X className="h-4 w-4 text-destructive" />
-                        </button>
-                      </div>
-
-                      <div className="space-y-2">
-                        <label
-                          htmlFor="update-file-upload"
-                          className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-primary/30 rounded-lg cursor-pointer bg-background/50 hover:bg-background/80 transition-colors"
-                        >
-                          <div className="flex flex-col items-center justify-center pt-3 pb-4">
-                            <Upload className="h-8 w-8 text-primary mb-2" />
-                            <p className="text-xs text-muted-foreground">
-                              Click to upload new file
-                            </p>
+                  {/* Review Section */}
+                  <div className="mt-4 border-t border-primary/20 pt-4">
+                    <h4 className="text-sm font-medium text-foreground mb-2">Doctor Reviews</h4>
+                    {report.reviews && report.reviews.length > 0 ? (
+                      <div className="space-y-3">
+                        {report.reviews.map((review, index) => (
+                          <div key={index} className="bg-background/30 rounded-lg p-3">
+                            <p className="text-sm text-muted-foreground">{review}</p>
                           </div>
-                          <input
-                            id="update-file-upload"
-                            type="file"
-                            className="hidden"
-                            onChange={handleFileSelect}
-                            accept=".pdf,.jpg,.jpeg,.png"
-                          />
-                        </label>
-
-                        {selectedFile && (
-                          <div className="flex items-center justify-between p-2 bg-background/50 rounded-lg">
-                            <div className="flex items-center space-x-2">
-                              <FileText className="h-4 w-4 text-primary" />
-                              <span className="text-sm text-foreground">{selectedFile.name}</span>
-                            </div>
-                            <span className="text-xs text-muted-foreground">
-                              {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
-                            </span>
-                          </div>
-                        )}
+                        ))}
                       </div>
-
-                      <div className="space-y-2">
-                        <h4 className="text-sm font-medium text-foreground">Reviews</h4>
-                        <div className="flex space-x-2">
-                          <input
-                            type="text"
-                            value={newReview}
-                            onChange={(e) => setNewReview(e.target.value)}
-                            placeholder="Add a new review..."
-                            className="flex-1 px-3 py-2 bg-background/50 border border-primary/20 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
-                          />
-                          <button
-                            onClick={handleAddReview}
-                            className="px-3 py-2 bg-primary text-primary-foreground rounded-lg text-sm hover:bg-primary/90 transition-colors"
-                          >
-                            Add
-                          </button>
-                        </div>
-                        {editingReport.reviews && editingReport.reviews.length > 0 && (
-                          <ul className="space-y-1">
-                            {editingReport.reviews.map((review, index) => (
-                              <li key={index} className="flex items-center justify-between text-sm bg-background/50 p-2 rounded-lg">
-                                <span className="text-muted-foreground">{review}</span>
-                                <button
-                                  onClick={() => handleRemoveReview(index)}
-                                  className="p-1 hover:bg-destructive/10 rounded-full transition-colors"
-                                >
-                                  <X className="h-3 w-3 text-destructive" />
-                                </button>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
+                    ) : (
+                      <div className="text-sm text-muted-foreground italic">
+                        Not reviewed yet
                       </div>
-
-                      <button
-                        onClick={() => handleUpdateReport(report.id)}
-                        disabled={!selectedFile || loading}
-                        className="w-full bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        {loading ? (
-                          <div className="flex items-center justify-center space-x-2">
-                            <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
-                            <span>Updating...</span>
-                          </div>
-                        ) : (
-                          'Update Report'
-                        )}
-                      </button>
-                    </div>
-                  ) : (
-                    report.reviews && Array.isArray(report.reviews) && report.reviews.length > 0 && (
-                      <div className="mt-2">
-                        <h4 className="text-sm font-medium text-foreground mb-2">Doctor's Reviews:</h4>
-                        <ul className="space-y-1">
-                          {report.reviews.map((review, index) => (
-                            <li key={index} className="text-sm text-muted-foreground">
-                              • {review}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )
-                  )}
+                    )}
+                  </div>
                 </div>
               ))}
             </div>

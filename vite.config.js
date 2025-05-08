@@ -11,4 +11,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    allowedHosts: ['gratuit-wings-subscribe-said.trycloudflare.com'],
+    cors: true,
+    port: 5173,
+    host: true
+  }
 })

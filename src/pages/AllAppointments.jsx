@@ -17,7 +17,7 @@ const AllAppointments = () => {
   const fetchAppointments = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${BASE}/admin/appointments`, {
+      const response = await axios.get(`${BASE}/getAllAppointments`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ const AllAppointments = () => {
 
     try {
       setDeletingAppointmentId(appointmentId);
-      await axios.delete(`${BASE}/admin/appointments/${appointmentId}`, {
+      await axios.get(`${BASE}/deleteAppointment/${appointmentId}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ const AllAppointments = () => {
       
       // Remove the deleted appointment from the state
       setAppointments(prevAppointments => 
-        prevAppointments.filter(appointment => appointment.id !== appointmentId)
+        prevAppointments.filter(appointment => appointment.appointment.id !== appointmentId)
       );
     } catch (error) {
       console.error('Error deleting appointment:', error);
@@ -116,24 +116,24 @@ const AllAppointments = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-foreground">
-                    {appointment.hospital?.name || 'Hospital Name'}
+                    {appointment.hospital.tags.name || 'Hospital Name'}
                   </h3>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <User className="w-4 h-4" />
+                    <span>{appointment.appointment.userEmail}</span>
+                  </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Clock className="w-4 h-4" />
                     <span>{formatDate(appointment.appointment.timestamp)}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="w-4 h-4" />
-                    <span>{appointment.hospital?.address || 'Hospital Address'}</span>
-                  </div>
                 </div>
               </div>
               <button
-                onClick={() => handleDeleteAppointment(appointment.id)}
-                disabled={deletingAppointmentId === appointment.id}
+                onClick={() => handleDeleteAppointment(appointment.appointment.id)}
+                disabled={deletingAppointmentId === appointment.appointment.id}
                 className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
               >
-                {deletingAppointmentId === appointment.id ? (
+                {deletingAppointmentId === appointment.appointment.id ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
                   <Trash2 className="w-5 h-5" />
