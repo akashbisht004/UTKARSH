@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Upload, FileText, AlertCircle, CheckCircle2, Loader2, Edit2, X, Calendar } from 'lucide-react';
+import { Upload, FileText, AlertCircle, CheckCircle2, Loader2, Calendar } from 'lucide-react';
 import axios from 'axios';
 import { BASE } from '@/url/baseurl';   
-
-
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
   };
+
 const ReportAnalysis = () => {
     
   const [selectedFile, setSelectedFile] = useState(null);

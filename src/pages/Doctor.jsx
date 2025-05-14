@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { FileText, Loader2, Send, Download } from 'lucide-react';
 import axios from 'axios';
 import { BASE } from '@/url/baseurl';
-import { IconButton } from '@mui/material';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -94,9 +93,8 @@ const Doctor = () => {
 
   const handleDownload = (report) => {
     try {
-      // Get the base64 data and detect file type
       const base64String = report.image;
-      const fileType = base64String.split(';')[0].split(':')[1]; // Get the MIME type
+      const fileType = base64String.split(';')[0].split(':')[1]; 
       const base64Data = base64String.split(',')[1] || base64String;
       
       // Convert base64 to blob

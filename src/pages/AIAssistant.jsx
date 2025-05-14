@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, MessageSquare, Plus, Menu, X, Sparkles } from 'lucide-react';
+import { Send, Bot, User, Menu, X, Sparkles } from 'lucide-react';
 import axios from 'axios';
 import { BASE_AI } from '@/url/baseurl';
 

@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { 
   Users, 
   Calendar, 
-  Settings, 
   LogOut,
   ChevronLeft,
   ChevronRight,
-  Activity,
-  MessageSquare,
   TrendingUp
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';

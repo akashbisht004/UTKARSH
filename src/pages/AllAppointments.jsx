@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Trash2, Loader2, Clock, MapPin, User, Stethoscope } from 'lucide-react';
+import { Calendar, Trash2, Loader2, Clock, User } from 'lucide-react';
 import axios from 'axios';
 import { BASE } from '@/url/baseurl';
 
