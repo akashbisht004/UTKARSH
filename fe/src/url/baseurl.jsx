@@ -1,5 +1,5 @@
 
 
-let BASE="https://remarks-mandatory-obligations-town.trycloudflare.com"
-let BASE_AI=" https://roller-nodes-oaks-prescription.trycloudflare.com"
+let BASE="http://localhost:8080"
+let BASE_AI=""
 export {BASE,BASE_AI}
