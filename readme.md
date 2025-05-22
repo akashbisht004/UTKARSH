@@ -1,6 +1,6 @@
 # 📊 Nirog AI — Your AI-Powered Personal Health Companion
 
-**Nirog AI** is an intelligent, multimodal health tracking and advisory application built using **Spring Boot** (backend) and **React + Vite** (frontend). It empowers users to log symptoms through voice or text, retrieves contextual knowledge from trusted medical documents (like PDFs), and responds with relevant health advice — all using state-of-the-art AI.
+**Nirog AI** is an intelligent, health tracking and advisory application built using **Spring Boot** (backend) and **React + Vite** (frontend). It empowers users to book appointments, retrieves contextual knowledge from trusted medical documents (like PDFs), and interact with AI assistant to resolve common health issues.
 
 ---
 
@@ -9,20 +9,37 @@
 | Layer         | Technology                                    |
 | ------------- | --------------------------------------------- |
 | **Frontend**  | React 19, Vite 6, TailwindCSS, MUI            |
-| **Backend**   | Spring Boot, LangChain (Python API bridge)    |
-| **AI**        | Whisper (for voice transcription), OpenAI/GPT |
+| **Backend**   | Spring Boot                                   |
+| **AI**        | Gemini API                                    |
 | **Embedding** | FAISS / ChromaDB, PDF ingestion               |
 | **UI/UX**     | Tailwind CSS, MUI, Framer Motion              |
 
 ---
 
-## 📸 Features at a Glance
+## ✨ Features of Nirog AI
 
-* 🎤 **Voice-to-Text Input**: Users can speak symptoms via mic or upload a voice note.
-* 📄 **PDF Knowledge Base**: Medical books are parsed and embedded for intelligent querying.
-* 💬 **Contextual Answers**: LLM provides human-like health suggestions.
-* 🗂️ **History & Records**: Optionally log past interactions (coming soon).
-* 📱 **Responsive Design**: Works seamlessly on mobile and web.
+Here’s what our app can do:
+
+- 🩺 **Book appointments with doctors**  
+  Seamlessly schedule consultations with verified medical professionals.
+
+- 📈 **Upload and analyze medical reports using AI**  
+  Get smart insights from your health records, powered by AI-driven analysis.
+
+- 📍 **Locate nearby hospitals**  
+  Instantly find the nearest hospitals based on your location.
+
+- 👨‍⚕️ **Get virtual consultations**  
+  Connect with doctors online through secure virtual consultations.
+
+- 💡 **Receive personalized wellness suggestions**  
+  Stay healthier with AI-generated tips tailored just for you.
+
+- 📩 **Email integration for booking and cancellation**  
+  Receive real-time email notifications for appointment bookings and cancellations.
+
+- ✨ **Separate portals for user, doctors, and admin**  
+  Customized dashboards for patients, doctors, and administrators for seamless experience.
 
 ---
 
